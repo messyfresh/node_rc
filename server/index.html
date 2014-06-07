@@ -1,0 +1,72 @@
+ <!DOCTYPE html> <html> <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>LED Toggle Test</title>
+ 
+    <!-- jQuery and jQuery Mobile -->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+    </head> 
+    
+    <body>
+    <div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+        <h3>
+            Motor Control Test
+        </h3>
+    </div>
+    <div data-role="content">
+    <div align="center"> <img src="http://rpi.nixhome.com:8080/?action=stream" /></div>
+        <div data-role="fieldcontain">
+            <label for="motor1">
+                Motor1
+            </label>
+            <a href="#" name="motor1" id="M1L" data-theme="b" class="ui-btn 
+            ui-btn-inline ui-icon-delete ui-btn-icon-left"
+            onmousedown="motor1L(event)" onmouseup="motor1S(event)">
+            Left</a>
+			<a href="#" name="motor1" id="M1R" data-theme="b" class="ui-btn 
+            ui-btn-inline ui-icon-delete ui-btn-icon-right"
+            onmousedown="motor1R(event)" onmouseup="motor1S(event)">
+            Right</a>
+			<a href="#" name="motor2" id="M2L" data-theme="b" class="ui-btn 
+            ui-btn-inline ui-icon-delete ui-btn-icon-top"
+            onmousedown="motor2L(event)" onmouseup="motor2S(event)">
+            Forward</a>
+			<a href="#" name="motor2" id="M2R" data-theme="b" class="ui-btn 
+            ui-btn-inline ui-icon-delete ui-btn-icon-bottom"
+            onmousedown="motor2R(event)" onmouseup="motor2S(event)">
+            Backward</a>
+        </div>
+    </div>
+    
+        <script src="http://localhost/noderc/socket.io-1.0.4.js"></script>
+		<script>
+		
+		var socket = io.connect('http://rpi.nixhome.com');
+		
+        //var sock = io.connect(http://rpi.nixhome.com);
+        function motor1S(event){
+            socket.emit('motor1', 'M1S');
+        }
+        function motor1L(event){
+            socket.emit('motor1', 'M1L');
+        }
+		function motor1R(event){
+			socket.emit('motor1', 'M1R');
+		}
+		function motor2S(event){
+			socket.emit('motor2', 'M2S');
+		}
+		function motor2L(event){
+			socket.emit('motor2', 'M2L');
+		}
+		function motor2R(event){
+			socket.emit('motor2', 'M2R');
+		}
+        </script>
+    </body>
+</html>
